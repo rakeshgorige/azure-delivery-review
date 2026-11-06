@@ -8,6 +8,7 @@ From this directory, with Python 3:
 
 ```bash
 python3 review.py example.json
+python3 review.py example.json --format json
 python3 -m unittest -v test_review.py
 ```
 
@@ -17,7 +18,13 @@ The example intentionally has missing controls; the review command returns exit 
 
 The prototype checks only whether each example JSON value is the boolean `true`. A declared control is **not independently verified**: it does not inspect Azure, Terraform, GitHub settings, permissions, or actual deployment evidence. It does not establish compliance or security.
 
-Three unit tests passed locally for missing controls, strict boolean handling, and invalid input. A GitHub Actions workflow runs the unit tests on pushes and pull requests. Real policy integration and Azure deployment are not implemented.
+Seven tests cover the review logic and CLI, including default text output, JSON reports, strict boolean handling, success and failure exit codes, and invalid input. A GitHub Actions workflow runs the tests on pushes and pull requests. Real policy integration and Azure deployment are not implemented.
+
+## JSON reports for CI
+
+Use `--format json` for a report containing `schema_version`, `review_type`, `independently_verified`, and a `findings` array. Each finding includes the control name, status, and recommendation. The report explicitly records that declarations are not independently verified.
+
+Text remains the default. Both formats return 0 for all controls declared, 1 for missing controls, and 2 for invalid input. Invalid input produces an error on stderr and no report on stdout. CI callers should capture the exit code before processing the report because missing controls intentionally return 1.
 
 ## Engineering choices
 
@@ -28,3 +35,4 @@ Three unit tests passed locally for missing controls, strict boolean handling, a
 ## Next steps
 
 Build evidence-backed checks for selected GitHub or Terraform configuration, document CI results, and review limitations. This AI-assisted personal prototype is a learning and portfolio project.
+

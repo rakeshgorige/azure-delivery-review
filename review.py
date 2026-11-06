@@ -22,6 +22,8 @@ def review(config):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("config", type=Path)
+    parser.add_argument("--format", choices=("text", "json"), default="text",
+                        help="output format (default: text)")
     args = parser.parse_args()
     try:
         config = json.loads(args.config.read_text(encoding="utf-8"))
@@ -29,10 +31,15 @@ def main():
     except (OSError, ValueError) as exc:
         print(f"Error: {exc}", file=sys.stderr)
         return 2
-    print("Declaration review only; controls are not independently verified.\n")
-    for finding in findings:
-        print(f"{finding['status'].upper():12} {finding['control']}: {finding['recommendation']}")
+    if args.format == "json":
+        print(json.dumps({"schema_version": 1, "review_type": "declarations_only",
+                          "independently_verified": False, "findings": findings}, indent=2))
+    else:
+        print("Declaration review only; controls are not independently verified.\n")
+        for finding in findings:
+            print(f"{finding['status'].upper():12} {finding['control']}: {finding['recommendation']}")
     return 1 if any(f["status"] == "needs review" for f in findings) else 0
 
 if __name__ == "__main__":
     sys.exit(main())
+

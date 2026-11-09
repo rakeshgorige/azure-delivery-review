@@ -1,5 +1,5 @@
 # Azure Delivery Review
-**An AI-assisted Python prototype by Rakesh Goriga · Platform & DevOps Engineering**
+**An AI-assisted Python prototype by Rakesh Gorige · Platform & DevOps Engineering**
 
 A small local CLI for reviewing **declared** infrastructure delivery controls. It reads a JSON configuration and reports items needing review: Terraform validation, plan review, short-lived authentication, access scope, approval, and recovery planning.
 
@@ -39,4 +39,4 @@ Text output is the default. Missing controls intentionally return exit code 1, s
 
 Implement evidence-backed checks for selected GitHub or Terraform settings and document proof, CI behavior, and limitations. This remains a **personal learning and portfolio prototype**, not a production security or compliance system.
 
-**Maintainer: Rakesh Goriga**
+**Maintainer: Rakesh Gorige**

@@ -3,7 +3,7 @@
 
 A small local CLI for reviewing **declared** infrastructure delivery controls. It reads a JSON configuration and reports items needing review: Terraform validation, plan review, short-lived authentication, access scope, approval, and recovery planning.
 
-[Portfolio](https://github.com/rakeshgorige/RockyProject) · [GitHub profile](https://github.com/rakeshgorige)
+[Portfolio](https://github.com/rakeshgorige/platform-engineering-portfolio) · [GitHub profile](https://github.com/rakeshgorige)
 
 ## Try it
 
